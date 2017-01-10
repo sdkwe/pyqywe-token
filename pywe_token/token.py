@@ -2,6 +2,7 @@
 
 import time
 
+from pywe_exception import WeChatException
 from pywe_utils import WechatUtils
 
 
@@ -16,9 +17,11 @@ class Token(WechatUtils):
         self.expires_at = None
 
     def __fetch_access_token(self, appid=None, secret=None):
-        token_info = self.get(self.WECHAT_ACCESS_TOKEN, appid=appid or self.appid, secret=secret or self.secret)
-        self.token = token_info.get('access_token')
-        self.expires_at = int(time.time()) + token_info.get('expires_in')
+        result = self.get(self.WECHAT_ACCESS_TOKEN, appid=appid or self.appid, secret=secret or self.secret)
+        if 'expires_in' not in result:
+            raise WeChatException(result)
+        self.token = result.get('access_token')
+        self.expires_at = int(time.time()) + result.get('expires_in')
         return self.token
 
     def access_token(self, appid=None, secret=None):
