@@ -2,11 +2,11 @@
 
 import time
 
+from pywe_base import BaseWechat
 from pywe_exception import WeChatException
-from pywe_utils import WechatUtils
 
 
-class Token(WechatUtils):
+class Token(BaseWechat):
     def __init__(self, appid=None, secret=None, redis_conn=None, redis_key=None):
         # 获取access token, Refer: https://mp.weixin.qq.com/wiki/14/9f9c82c1af308e3b14ba9b973f99a8ba.html
         super(Token, self).__init__()
