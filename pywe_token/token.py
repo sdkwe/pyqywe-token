@@ -53,6 +53,10 @@ class Token(BaseWechat):
                 return access_token
         return self.__fetch_access_token(appid, secret, storage)
 
+    def refresh_access_token(self, appid=None, secret=None, storage=None):
+        return self.__fetch_access_token(appid, secret, storage)
+
 
 token = Token()
 access_token = token.access_token
+refresh_access_token = token.refresh_access_token

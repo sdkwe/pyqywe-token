@@ -93,3 +93,5 @@ Method
 
     def access_token(self, appid=None, secret=None, storage=None):
 
+    def refresh_access_token(self, appid=None, secret=None, storage=None):
+
