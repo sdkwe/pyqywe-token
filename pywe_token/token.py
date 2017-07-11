@@ -9,7 +9,7 @@ from pywe_storage import MemoryStorage
 
 class Token(BaseWechat):
     def __init__(self, appid=None, secret=None, storage=None):
-        # 获取access token, Refer: https://mp.weixin.qq.com/wiki/14/9f9c82c1af308e3b14ba9b973f99a8ba.html
+        # 获取access token, Refer: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183
         super(Token, self).__init__()
         self.WECHAT_ACCESS_TOKEN = self.API_DOMAIN + '/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}'
         self.appid = appid
