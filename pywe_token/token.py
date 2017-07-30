@@ -20,7 +20,7 @@ class Token(BaseWechat):
 
     @property
     def access_info_key(self):
-        return '{}:access:info'.format(self.appid)
+        return '{0}:access:info'.format(self.appid)
 
     def __about_to_expires(self, expires_at):
         return expires_at and expires_at - int(time.time()) < 60
