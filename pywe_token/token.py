@@ -21,21 +21,20 @@ class Token(BaseToken):
         return expires_at and expires_at - int(time.time()) < 60
 
     def __fetch_access_token(self, appid=None, secret=None, storage=None):
-        access_info = self.get(self.WECHAT_ACCESS_TOKEN, appid=appid or self.appid, secret=secret or self.secret)
+        # Update Params
+        self.update_params(appid=appid, secret=secret, storage=storage)
+        access_info = self.get(self.WECHAT_ACCESS_TOKEN, appid=self.appid, secret=self.secret)
         if 'expires_in' not in access_info:
             raise WeChatException(access_info)
         expires_in = access_info.get('expires_in')
-        storage = storage or self.storage
-        if storage:
+        if self.storage:
             access_info['expires_at'] = int(time.time()) + expires_in
-            storage.set(self.access_info_key, access_info, expires_in)
+            self.storage.set(self.access_info_key, access_info, expires_in)
         return access_info.get('access_token')
 
     def access_token(self, appid=None, secret=None, storage=None):
-        # Init appid/secret/storage
-        self.appid = appid or self.appid
-        self.secret = secret or self.secret
-        self.storage = storage or self.storage
+        # Update Params
+        self.update_params(appid=appid, secret=secret, storage=storage)
         # Fetch access_info
         access_info = self.storage.get(self.access_info_key)
         if access_info:
