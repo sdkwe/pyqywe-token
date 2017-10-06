@@ -9,6 +9,4 @@ class BaseToken(BaseWechat):
         super(BaseToken, self).__init__()
         self.appid = appid
         self.secret = secret
-        self.token = token
         self.storage = storage or MemoryStorage()
-        self.expires_at = expires_at
