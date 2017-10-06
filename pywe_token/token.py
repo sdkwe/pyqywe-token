@@ -2,21 +2,16 @@
 
 import time
 
-from pywe_base import BaseWechat
 from pywe_exception import WeChatException
-from pywe_storage import MemoryStorage
+
+from .basetoken import BaseToken
 
 
-class Token(BaseWechat):
+class Token(BaseToken):
     def __init__(self, appid=None, secret=None, storage=None):
+        super(Token, self).__init__(appid=appid, secret=secret, storage=storage)
         # 获取access token, Refer: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183
-        super(Token, self).__init__()
         self.WECHAT_ACCESS_TOKEN = self.API_DOMAIN + '/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}'
-        self.appid = appid
-        self.secret = secret
-        self.storage = storage or MemoryStorage()
-        self.token = None
-        self.expires_at = None
 
     @property
     def access_info_key(self):
@@ -56,7 +51,11 @@ class Token(BaseWechat):
     def refresh_access_token(self, appid=None, secret=None, storage=None):
         return self.__fetch_access_token(appid, secret, storage)
 
+    def final_access_token(self, cls, appid=None, secret=None, token=None, storage=None):
+        return token or cls.token or self.access_token(appid or cls.appid, secret or cls.secret, storage=storage or cls.storage)
+
 
 token = Token()
 access_token = token.access_token
 refresh_access_token = token.refresh_access_token
+final_access_token = token.final_access_token

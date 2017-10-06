@@ -79,10 +79,16 @@ pip install pywe-token
 # Method
 
 ```python
-class Token(WechatUtils):
+class BaseToken(BaseWechat):
+    def __init__(self, appid=None, secret=None, token=None, storage=None, expires_at=None):
+
+class Token(BaseToken):
     def __init__(self, appid=None, secret=None, storage=None):
+        super(Token, self).__init__(appid=appid, secret=secret, storage=storage)
 
 def access_token(self, appid=None, secret=None, storage=None):
 
 def refresh_access_token(self, appid=None, secret=None, storage=None):
+
+def final_access_token(self, cls, appid=None, secret=None, token=None, storage=None):
 ```
