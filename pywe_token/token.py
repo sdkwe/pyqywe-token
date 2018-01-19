@@ -13,10 +13,6 @@ class Token(BaseToken):
         # 获取access token, Refer: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183
         self.WECHAT_ACCESS_TOKEN = self.API_DOMAIN + '/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}'
 
-    @property
-    def access_info_key(self):
-        return '{0}:access:info'.format(self.appid)
-
     def __about_to_expires(self, expires_at):
         return expires_at and expires_at - int(time.time()) < 60
 
