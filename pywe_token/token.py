@@ -30,7 +30,7 @@ class Token(BaseToken):
         self.storage.set(self.access_info_key, access_info, expires_in)
         # If token_fetched_func, Call it with `appid`, `secret`, `access_info`
         if token_fetched_func:
-            token_fetched_func(appid, secret, access_info)
+            token_fetched_func(self.appid, self.secret, access_info)
         # Return Access Token
         return access_info.get('access_token')
 
@@ -43,7 +43,7 @@ class Token(BaseToken):
             access_token = access_info.get('access_token')
             if access_token and not self.__about_to_expires(access_info.get('expires_at')):
                 return access_token
-        return self.__fetch_access_token(appid, secret, storage, token_fetched_func=token_fetched_func)
+        return self.__fetch_access_token(self.appid, self.secret, self.storage, token_fetched_func=self.token_fetched_func)
 
     def refresh_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None):
         return self.__fetch_access_token(appid, secret, storage, token_fetched_func=token_fetched_func)
