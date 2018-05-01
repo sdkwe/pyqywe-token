@@ -80,15 +80,15 @@ pip install pywe-token
 
 ```python
 class BaseToken(BaseWechat):
-    def __init__(self, appid=None, secret=None, token=None, storage=None, expires_at=None):
+    def __init__(self, appid=None, secret=None, token=None, storage=None, token_fetched_func=None):
 
 class Token(BaseToken):
-    def __init__(self, appid=None, secret=None, storage=None):
-        super(Token, self).__init__(appid=appid, secret=secret, storage=storage)
+    def __init__(self, appid=None, secret=None, storage=None, token_fetched_func=None):
+        super(Token, self).__init__(appid=appid, secret=secret, storage=storage, token_fetched_func=token_fetched_func)
 
-def access_token(self, appid=None, secret=None, storage=None):
+def access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None):
 
-def refresh_access_token(self, appid=None, secret=None, storage=None):
+def refresh_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None):
 
-def final_access_token(self, cls, appid=None, secret=None, token=None, storage=None):
+def final_access_token(self, cls, appid=None, secret=None, token=None, storage=None, token_fetched_func=None):
 ```
