@@ -7,7 +7,7 @@ from pywe_storage import MemoryStorage
 
 
 class BaseToken(BaseWechat):
-    def __init__(self, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
+    def __init__(self, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=6600):
         super(BaseToken, self).__init__()
         self.appid = appid
         self.secret = secret
@@ -29,7 +29,7 @@ class BaseToken(BaseWechat):
     def access_info_key(self):
         return '{0}:access:info'.format(self.appid)
 
-    def update_params(self, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
+    def update_params(self, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=6600):
         self.appid = appid or self.appid
         self.secret = secret or self.secret
         self.token = token or self.token
