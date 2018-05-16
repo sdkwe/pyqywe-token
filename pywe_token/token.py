@@ -8,15 +8,17 @@ from .basetoken import BaseToken
 
 
 class Token(BaseToken):
-    def __init__(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=3600):
+    def __init__(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
         super(Token, self).__init__(appid=appid, secret=secret, storage=storage, token_fetched_func=token_fetched_func, refresh_left_seconds=refresh_left_seconds)
         # 获取access token, Refer: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183
+        # 每日实时调用量：100000（次）
+        # 如果10分钟刷新一次，则每日预计刷新次数，24 * 60 / 10 = 144
         self.WECHAT_ACCESS_TOKEN = self.API_DOMAIN + '/cgi-bin/token?grant_type=client_credential&appid={appid}&secret={secret}'
 
-    def __about_to_expires(self, expires_at, refresh_left_seconds=3600):
+    def __about_to_expires(self, expires_at, refresh_left_seconds=600):
         return expires_at and expires_at - int(time.time()) < refresh_left_seconds
 
-    def __fetch_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=3600):
+    def __fetch_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
         # Update Params
         self.update_params(appid=appid, secret=secret, storage=storage, token_fetched_func=token_fetched_func, refresh_left_seconds=refresh_left_seconds)
         # Access Info Request
@@ -34,7 +36,7 @@ class Token(BaseToken):
         # Return Access Token
         return access_info.get('access_token')
 
-    def access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=3600):
+    def access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
         # Update Params
         self.update_params(appid=appid, secret=secret, storage=storage, token_fetched_func=token_fetched_func, refresh_left_seconds=refresh_left_seconds)
         # Fetch access_info
@@ -45,10 +47,10 @@ class Token(BaseToken):
                 return access_token
         return self.__fetch_access_token(self.appid, self.secret, self.storage, token_fetched_func=self.token_fetched_func, refresh_left_seconds=refresh_left_seconds)
 
-    def refresh_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=3600):
+    def refresh_access_token(self, appid=None, secret=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
         return self.__fetch_access_token(appid, secret, storage, token_fetched_func=token_fetched_func, refresh_left_seconds=refresh_left_seconds)
 
-    def final_access_token(self, cls=None, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=3600):
+    def final_access_token(self, cls=None, appid=None, secret=None, token=None, storage=None, token_fetched_func=None, refresh_left_seconds=600):
         return token or self.access_token(appid or cls.appid, secret or cls.secret, storage=storage or cls.storage, token_fetched_func=token_fetched_func or cls.token_fetched_func, refresh_left_seconds=refresh_left_seconds or cls.refresh_left_seconds)
 
 
