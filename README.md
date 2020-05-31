@@ -1,11 +1,11 @@
-# pywe-token
+# pyqywe-token
 
 Wechat Access Token Module for Python.
 
 # Installation
 
 ```shell
-pip install pywe-token
+pip install pyqywe-token
 ```
 
 # Usage
@@ -14,7 +14,7 @@ pip install pywe-token
   * Token
     ```python
     # Sandbox: http://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
-    In [1]: from pywe_token import Token
+    In [1]: from pyqywe_token import Token
 
     In [2]: token = Token('wx7aad305aed68bfe3', '9eac636765940ec286055c559ff84039')
 
@@ -29,7 +29,7 @@ pip install pywe-token
 
   * access_token
     ```python
-    In [1]: from pywe_token import access_token
+    In [1]: from pyqywe_token import access_token
 
     In [2]: access_token('wx7aad305aed68bfe3', '9eac636765940ec286055c559ff84039')
     Out[2]: u'ysR7_hUtodKCF1nHjq8gFtagugB8oEOlK6hB6raMztveawVzpnqK2FtftbQGsczTj0h2kc1Gl8R7fjmGVPmXBp306WW8UZUteXqiOgxh3DL0usLRLQVRn56Oi-yigkSoSYNbAIAEKZ'
@@ -46,7 +46,7 @@ pip install pywe-token
 
     In [4]: storage = RedisStorage(r)
 
-    In [5]: from pywe_token import Token
+    In [5]: from pyqywe_token import Token
 
     In [6]: token = Token('wx7aad305aed68bfe3', '9eac636765940ec286055c559ff84039', storage=storage)
 
@@ -67,7 +67,7 @@ pip install pywe-token
 
     In [4]: storage = RedisStorage(r)
 
-    In [5]: from pywe_token import access_token
+    In [5]: from pyqywe_token import access_token
 
     In [6]: access_token('wx7aad305aed68bfe3', '9eac636765940ec286055c559ff84039', storage=storage)
     Out[6]: u'5kJwbClb1CBo-5Dz_a9hZi1GcqSnLkRV2aYFmjSBTGEvVrH81XhT2eUjunVSJn_ej2uFXLJarjC0dlI78r-HxCWtTNxSPC06ARG_QqE9FoP7VhJNFsPX5z7tsySsCyEgKEZbAIAGAV'
